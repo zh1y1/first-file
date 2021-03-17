@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="node_modules/react/umd/react.development.js"></script>
+  <script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+  <script src="node_modules/babel-standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="demoReact"></div>
+  <script type="text/babel">
+
+    // *****用于点击即变色******** 
+    let arr=["吃饭","睡觉","打豆豆"];
+    // index用于判断此拾点击的是哪一项内容，要初始化为非0，1，2
+    let index=-1;
+
+    // 每次当前数据改变的时候都要渲染一次
+    function fun(){
+      let myDom=arr.map((v,i)=>{
+      //2. 每次初始化之后要调用渲染函数，即render()
+      return <p style={{color:i==index?"red":""}} key={i} onClick={()=>{index=i;render()}}>{v}</p>  
+      
+      })
+      //3.将修改之后的myDom返回出去
+      return myDom
+    }
+    
+    // 每次index改变的时候render没有再次执行，因此需要封装
+    function render(){
+      // 此时渲染的myDom是函数fun()里的，需要调用才会有返回
+      ReactDOM.render(fun(),document.getElementById("demoReact"));
+    }
+    {/*1. 初始化的时候需要渲染一次，保证渲染成功*/}
+    render()
+    
+  </script>
+
+</body>
+</html>
